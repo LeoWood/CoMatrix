@@ -46,11 +46,13 @@ def generate_matrix(au_group, matrix):
 
 if __name__ == '__main__':
     co_authors = 'a,b,n,g,d,y//v,b,d,a,s//a,n,d,b,s'
+    co_authors = '张三,里斯,和,sd//和,徐徐,里斯,有,sd//有,和,星,b,sd'
+    # co_authors = 'a,b,c//a,c,d//b,c,d'
     co_authors_list = co_authors.split('//')
     au_group, au_dict = authors_stat(co_authors_list)
     print(au_group)
     print(au_dict)
-    au_list = list(au_dict.keys())
+    au_list = list(au_dict.keys())  # 取出所有单个作者
     # 新建一个空矩阵
     matrix = pd.DataFrame(np.identity(len(au_list)), columns=au_list, index=au_list)
     print(matrix)
