@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2018-06-13 10:21:27
+# @Time    : 2018-06-18 11:06:30
 # @Author  : Liu Huan (liuhuan@mail.las.ac.cn)
 
 import pandas as pd
@@ -21,9 +21,10 @@ def authors_stat(co_authors_list):
             # 统计合作的频次
             authors_co = authors_co[1:]  # 去掉当前作者
             for au_c in authors_co:
-                if au > au_c:
-                    au, au_c = au_c, au  # 保持两个作者名字顺序一致
-                co_au = au+','+au_c  # 将两个作者合并起来，依然以逗号隔开
+                A, B = au, au_c  # 不能用本来的名字，否则会改变au自身
+                if A > B:
+                    A, B = B, A  # 保持两个作者名字顺序一致
+                co_au = A+','+B  # 将两个作者合并起来，依然以逗号隔开
                 if co_au not in au_group:
                     au_group[co_au] = 1
                 else:
@@ -46,7 +47,7 @@ def generate_matrix(au_group, matrix):
 
 if __name__ == '__main__':
     co_authors = 'a,b,n,g,d,y//v,b,d,a,s//a,n,d,b,s'
-    co_authors = '张三,里斯,和,sd//和,徐徐,里斯,有,sd//有,和,星,b,sd'
+    # co_authors = '张三,里斯,和,sd//和,徐徐,里斯,有,sd//有,和,星,b,sd'
     # co_authors = 'a,b,c//a,c,d//b,c,d'
     co_authors_list = co_authors.split('//')
     au_group, au_dict = authors_stat(co_authors_list)
